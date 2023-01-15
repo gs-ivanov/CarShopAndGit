@@ -24,5 +24,7 @@
          .WithConfiguration<CarShopDbContext>(context => context
              .Database.Migrate())
          .Start();
+
+        // Comment
     }
 }
