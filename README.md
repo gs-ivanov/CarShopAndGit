@@ -1,2 +1,2 @@
-# CarShop
+# CarShop and Git
 Exam preparation
