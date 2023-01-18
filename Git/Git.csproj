@@ -17,6 +17,7 @@
 	
 	
 	<ItemGroup>
+	  <None Remove="Views\Copy\All.cshtml" />
 	  <None Remove="Views\Error.cshtml" />
 	  <None Remove="Views\Layout.cshtml" />
 	  <None Remove="wwwroot\custom.css" />

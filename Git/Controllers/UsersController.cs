@@ -1,8 +1,9 @@
 ﻿namespace Git.Controllers
 {
+    using Git.Data;
+    using Git.Data.Models;
     using Git.Models.Users;
     using Git.Services;
-    using Git.Data;
     using MyWebServer.Controllers;
     using MyWebServer.Http;
     using System.Linq;
@@ -10,14 +11,17 @@
     public class UsersController : Controller
     {
         private readonly IValidator validator;
+        IPasswordHasher passwordHasher;
         private readonly GitDbContext data;
 
         public UsersController(
             IValidator validator,
+            IPasswordHasher passwordHasher,
             GitDbContext data
             )
         {
             this.validator = validator;
+            this.passwordHasher = passwordHasher;
             this.data = data;
         }
 
@@ -42,14 +46,43 @@
             {
                 return Error(modelErrors);
             }
-                return Error(modelErrors);
 
-            //var user=data
+            var user = new User
+            {
+                Username = model.Username,
+                Password = this.passwordHasher.HashPassword(model.Password),
+                Email = model.Email
+            };
 
-            //return null;
+            data.Users.Add(user);
+
+            data.SaveChanges();
+
+            return Redirect("/Users/Login");
         }
 
 
         public HttpResponse Login() => View();
+
+        [HttpPost]
+        public HttpResponse Login(LoginUserFormModel model)
+        {
+            var hashedPassword = this.passwordHasher.HashPassword(model.Password);
+
+            var userId = this.data
+                .Users
+                .Where(u => u.Username == model.Username && u.Password == hashedPassword)
+                .Select(u => u.Id)
+                .FirstOrDefault();
+
+            if (userId==null)
+            {
+                return Error("Username and password combination is not valid.");
+            }
+
+            this.SignIn(userId);
+
+            return Redirect("/Copy/All");//RepositoriesRepositories
+        }
     }
 }

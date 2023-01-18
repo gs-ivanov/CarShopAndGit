@@ -23,6 +23,11 @@
 
             if (!Regex.IsMatch(model.Email,UserEmailRegularExpression))
             {
+                errors.Add($"Email {model.Email} is not a valid e-mail address.");
+            }
+
+            if (model.Password.Length < UserMinPassword || model.Password.Length > DefaultMaxLength)
+            {
                 errors.Add($"The provided password is not valid. It must be between {UserMinPassword} and {DefaultMaxLength} characters long.");
             }
 

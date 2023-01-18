@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Git.Data.Migrations
 {
     [DbContext(typeof(GitDbContext))]
-    [Migration("20230116074713_UserRepositoryCommitTables")]
+    [Migration("20230117071341_UserRepositoryCommitTables")]
     partial class UserRepositoryCommitTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,12 +110,13 @@ namespace Git.Data.Migrations
                     b.HasOne("Git.Data.Models.User", "Creator")
                         .WithMany("Commits")
                         .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Git.Data.Models.Repository", "Repository")
                         .WithMany("Commits")
-                        .HasForeignKey("RepositoryId");
+                        .HasForeignKey("RepositoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Creator");
 
@@ -127,7 +128,7 @@ namespace Git.Data.Migrations
                     b.HasOne("Git.Data.Models.User", "Owner")
                         .WithMany("Repositories")
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Owner");
