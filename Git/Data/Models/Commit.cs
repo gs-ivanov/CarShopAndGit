@@ -1,8 +1,6 @@
 ﻿namespace Git.Data.Models
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using static DataConstants;
@@ -14,6 +12,7 @@
         public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
+        [MaxLength(CommitMaxDescription)]
         public string Description { get; set; }
 
         [Required]

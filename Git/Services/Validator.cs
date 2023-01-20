@@ -51,7 +51,7 @@
 
             if (model.Name.Length < RepositoryMinName|| model.Name.Length > RepositoryMaxName)
             {
-                errors.Add($"Repository '{model.Name}' is not valid. It must be between {RepositoryMinName} and {RepositoryMinName} characters long.");
+                errors.Add($"Repository '{model.Name}' is not valid. It must be between {RepositoryMinName} and {RepositoryMaxName} characters long.");
             }
 
             if (model.RepositoryType != RepositoryPublicType && model.RepositoryType != RepositoryPrivateType)

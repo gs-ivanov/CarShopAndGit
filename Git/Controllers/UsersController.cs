@@ -82,7 +82,13 @@
 
             this.SignIn(userId);
 
-            return Redirect("/Copy/All");//RepositoriesRepositories
+            return Redirect("/Repositories/All");
+        }
+
+        public HttpResponse Logout()
+        {
+            this.SignOut();
+            return Redirect("/");
         }
     }
 }
