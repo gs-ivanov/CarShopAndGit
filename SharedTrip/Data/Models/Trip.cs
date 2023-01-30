@@ -22,7 +22,7 @@
         public string EndPoint { get; set; }
 
         [Required]
-        public DateTime DepartureTime { get; set; } = DateTime.UtcNow;
+        public DateTime DepartureTime { get; init; } = DateTime.UtcNow;
 
         [MaxLength(TripMaxSeats)]
         public int Searts { get; set; }

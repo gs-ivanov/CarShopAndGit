@@ -1,13 +1,22 @@
 ﻿namespace SharedTrip.Services
 {
     using SharedTrip.Models.Users;
+    using SharedTrip.Models.Trips;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
     using static Data.DataConstants;
 
-    public class Valdator : IValidator
+    public class Valdator :IValidator
     {
+        public ICollection<string> ValidateTrip(AddTripViewModel model)
+        {
+            var errors = new List<string>();
+
+            return errors;
+
+        }
+
         public ICollection<string> ValidateUser(RegisterUserFormModel model)
         {
             var errors = new List<string>();
@@ -36,14 +45,9 @@
             {
                 errors.Add($"Password and its confirmation are different.");
             }
-
-            if (model.UserType != UserTypeMechanic && model.UserType != UserTypeClient)
-            {
-                errors.Add($"User should be either a '{UserTypeMechanic}' or '{UserTypeClient}'.");
-            }
-
             return errors;
         }
+
 
     }
 }
